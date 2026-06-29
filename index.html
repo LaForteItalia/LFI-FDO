@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LA FORTE ITALIA - FiveM Roleplay</title>
+    <style>
+        /* Reset e Stili Generali */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0d0d11;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Navbar Tricolore */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(13, 13, 17, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(to right, #009246, #f1f2f1, #ce2b37) 1;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo span.verde { color: #009246; }
+        .logo span.bianco { color: #f1f2f1; }
+        .logo span.rosso { color: #ce2b37; }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #009246;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 60px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(13, 13, 17, 1)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920') no-repeat center center/cover;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 900;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(135deg, #009246, #ce2b37);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(206, 43, 55, 0.3);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
+        }
+
+        .btn-discord:hover {
+            background: #4752C4;
+            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Sezioni Generiche */
+        section.content-section {
+            padding: 100px 8%;
+            text-align: center;
+        }
+
+        section.content-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Griglia Caratteristiche */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #16161f;
+            padding: 40px 25px;
+            border-radius: 8px;
+            border-top: 3px solid #009246;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #f1f2f1;
+            font-size: 22px;
+        }
+
+        .card p {
+            color: #aaa;
+            font-size: 15px;
+        }
+
+        /* Sistema di Tab per Regolamento FDO */
+        .tab-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            background-color: #16161f;
+            color: #fff;
+            border: 2px solid #222;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: #2196f3;
+            border-color: #2196f3;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: #16161f;
+            padding: 40px;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .regolamento-list {
+            list-style: decimal inside;
+            color: #dddddd;
+        }
+
+        .regolamento-list li {
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .regolamento-list strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Stile Guida di Comportamento Roma */
+        .roma-section {
+            color: #ddd;
+        }
+        .roma-section h3 {
+            color: #2196f3;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        .roma-block {
+            margin-bottom: 25px;
+            background: #1e1e2a;
+            padding: 20px;
+            border-radius: 6px;
+        }
+        .roma-block h4 {
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .highlight-text {
+            color: #ce2b37;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #07070a;
+            text-align: center;
+            padding: 30px;
+            font-size: 14px;
+            color: #555;
+            border-top: 1px solid #16161f;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="logo">
+            <span class="verde">LA</span> 
+            <span class="bianco">FORTE</span> 
+            <span class="rosso">ITALIA</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#caratteristiche">Caratteristiche</a></li>
+            <li><a href="#fdo">Regolamento FDO</a></li>
+        </ul>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <h1>LA 💚 FORTE 🤍 ITALIA ❤️</h1>
+        <p style="font-style: italic; color: #ffeb3b; font-weight: 600; margin-bottom: 10px; max-width: 700px; font-size: 18px;">
+            "NON GIOCARE PER VINCERE UNA SCENA, GIOCA PER CREARE UNA STORIA CHE VALGA LA PENA DI ESSERE RACCONTATA." <br>
+            <span style="color: #aaa; font-size: 14px; font-weight: normal;">BY DARKNESSTTV</span>
+        </p>
+        <p style="font-size: 14px; margin-bottom: 15px; color: #009246; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+            Regolamento FDO creato dai gestori FDO: <span style="color: #f1f2f1;">RENNY CANNUCCIA</span> e <span style="color: #ce2b37;">ERCOLONNELLO</span>
+        </p>
+        <p style="font-size: 18px; max-width: 600px; margin-bottom: 30px; color: #cccccc;">
+            Entra nel server Roleplay definitivo. Scrivi la tua storia tra le strade del nostro simulatore, unisciti a una community solida e vivi il vero RP italiano.
+        </p>
+        <div class="hero-buttons">
+            <a href="fivem://connect/cfx.re/join/4odj5q" class="btn">Entra nel Server</a>
+            <a href="https://discord.gg/psEgAwJJhn" target="_blank" class="btn btn-discord">Discord FDO (Richiedi Ruolo)</a>
+        </div>
+    </section>
+
+    <!-- CARATTERISTICHE -->
+    <section class="content-section" id="caratteristiche">
+        <h2>Perché giocare da noi?</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Roleplay Serio</h3>
+                <p>Niente azioni no-sense o fail-rp. Diamo valore alle storie di ogni singolo cittadino per offrire un'esperienza immersiva.</p>
+            </div>
+            <div class="card">
+                <h3>Sistemi Italiani</h3>
+                <p>Veicoli, divise e script ottimizzati per riflettere lo stile e le istituzioni del nostro Paese in modo realistico.</p>
+            </div>
+            <div class="card">
+                <h3>Economia Reale</h3>
+                <p>Lavori legali e illegali bilanciati al dettaglio. Guadagna, acquista la tua casa e gestisci le tue attività.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- REGOLAMENTO FDO -->
+    <section class="content-section" id="fdo" style="background-color: #09090c;">
+        <h2>Regolamento Forze dell'Ordine</h2>
+        
+        <div class="tab-container">
+            <!-- Bottoni per cambiare sezione -->
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="openTab('regole')">Direttive e Leggi</button>
+                <button class="tab-btn" onclick="openTab('filosofia')">Guida Roma Realismo</button>
+            </div>
+
+            <!-- TAB 1: REGOLE DIRETTE -->
+            <div id="regole" class="tab-content active">
+                <ol class="regolamento-list">
+                    <li>Le Fdo possono essere corrotte (con una motivazione RP e fatta eccezione per i soggetti indicati al punto 2) o infiltrarsi, ma solo con apertura ticket; se vengono scoperte subiranno il Perma-Jail.</li>
+                    <li>Il Procuratore, il Giudice e i Dirigenti o Comandanti delle FdO sono incorruttibili.</li>
+                    <li>La Riabilitazione Penale (pulizia della fedina) si esegue secondo le modalità e i costi previsti nel modulo dedicato. Se si arriva ad avere 10 reati di Classe A o B e non si è proceduto alla Riabilitazione Penale verrà emesso un mandato di cattura e si procederà al rinvio a giudizio per la condanna all'ergastolo (Perma-Jail). Il Giudice emetterà una sentenza di condanna (minimo pari al doppio di quanto avrebbe pagato per la Riabilitazione dei reati). Se il condannato non ha abbastanza soldi per pagare la sanzione gli verranno confiscati i beni (valutati al 60% del prezzo a nuovo) fino a raggiungere la somma dovuta. Ad avvenuto pagamento il conteggio dei mesi di reclusione si azzererà ma ogni futura riabilitazione costerà il doppio rispetto all'importo previsto (RECIDIVA).</li>
+                    <li>L'FdO può obbligare un cittadino a fornire la carta d'identità o la patente.</li>
+                    <li>Nel caso in cui un cittadino sia sprovvisto di carta d'identità, questo verrà portato in Questura/Caserma per identificazione tramite impronte digitali.</li>
+                    <li>Chiunque acceda al parcheggio o al desk delle strutture FdO non può essere perquisito senza un valido motivo RP, salvo necessità di accesso agli uffici interni.</li>
+                    <li>I soldi sporchi e le sostanze stupefacenti devono essere certificati come tali dalla GdF o dai reparti della scientifica dotati di macchinari idonei.</li>
+                    <li>In caso di blitz ad un locale/casa appartenente ad una mafia o clan, il numero massimo delle FdO in azione è 30. Armi consentite FdO: qualsiasi tipo di arma. Armi consentite criminali: qualsiasi arma. Entrambe le fazioni possono utilizzare casco e giubbotto.</li>
+                    <li>Le FDO non possono perquisire un cittadino a meno che: Non sia colto in flagranza di reato; Commetta una grave infrazione del CDS e non si dimostri collaborativo fermandosi all'ALT entro 2 minuti; Dal Casellario Giudiziale risulti che abbia commesso reati di tipo A o B nelle ultime 24 ore.</li>
+                    <li>Serve una motivazione RP per poter ingaggiare la polizia durante un fermo stradale, posto di blocco o controllo di routine. In assenza di motivazione si verrà sanzionati per COP BAITING. È obbligatoria la clip video, altrimenti l'azione viene considerata vinta dalle FdO.</li>
+                    <li>È vietato provocare volontariamente le FdO (COP-BAITING) per costringerle ad un inseguimento o conflitto. Pena: Warn o Ban in base alla gravità.</li>
+                    <li>È possibile utilizzare le armi di ordinanza solo in servizio (in divisa o in borghese con pettorina o placchetta identificativa), compreso il taser.</li>
+                    <li>L'FdO intervenuta su una rapina potrà chiedere supporto ma manterrà il comando dell'operazione.</li>
+                    <li>È raccomandato l'uso della body-cam o GoPro in modalità REC durante le azioni.</li>
+                    <li>Gli arresti o fermi non potranno durare più di 15 minuti reali dall'arrivo in caserma o questura, salvo casi di mancata collaborazione.</li>
+                    <li>Chi viene arrestato non potrà essere mandato in galera per più di 10 minuti reali. In caso di mancata collaborazione si può arrivare ad un massimo di 15 minuti.</li>
+                    <li>Ai cittadini portati in cella non si potrà togliere la GoPro e le registrazioni potranno essere utilizzate come prova di eventuali abusi o irregolarità.</li>
+                    <li>Gli agenti in divisa non sono tenuti a fornire le proprie generalità ma solo il grado, salvo richiesta da parte di altre autorità competenti.</li>
+                    <li>La Procura andrà interessata obbligatoriamente per reati di Classe A o B. In assenza di Procuratori l'interrogatorio potrà essere svolto autonomamente solo se: Vi partecipano massimo 3 FdO, di cui almeno un Maresciallo o Vice-Ispettore; È presente una registrazione audio/video.</li>
+                    <li>Solo la Procura può inserire i soggetti nell'elenco dei ricercati.</li>
+                    <li>Se le FdO vincono un'azione potranno sequestrare sul posto solo armi, radio e cellulari. È vietato sottrarre o disattivare la GoPro.</li>
+                    <li>I veicoli possono essere perquisiti solo se envolvti in azioni o reati, risultano rubati oppure su mandato della Procura.</li>
+                    <li>Ogni FdO dovrà mantenere aggiornata e condivisa la propria gerarchia con le altre forze e con la Procura.</li>
+                    <li>All'interno del DS e del DS interforze è obbligatoria la registrazione con ruolo, grado e nome in game.</li>
+                    <li>Le FdO possono dotarsi di reparti in borghese per attività investigative o di pattugliamento, rispettando le limitazioni previste.</li>
+                    <li>L'avvio di indagini deve essere autorizzato dal Dirigente/Generale competente e, ove necessario, dalla Procura.</li>
+                    <li>Le rapine ai negozietti possono essere effettuate senza ostaggio e prevedono automaticamente la fuga con inseguimento, senza blitz.</li>
+                    <li>Il PdA per difesa personale o uso sportivo viene rilasciato dopo visite mediche, prove balistiche e colloquio. In caso di condanna penale viene revocato.</li>
+                    <li>Le armi detenute con regolare PdA non possono essere esposte a vista e devono essere custodite secondo la normativa vigente.</li>
+                    <li>Tutte le FdO sono tenute a compilare correttamente i rapporti come da linee guida.</li>
+                    <li>Tutte le FdO che subiscono condanne penali non possono svolgere servizio fino all'avvenuta Riabilitazione Penale.</li>
+                    <li>Al raggiungimento di 4 condanne penali per reati di tipo A o B, anche se riabilitati, si dispone il congedo con disonore.</li>
+                    <li>Chi supera il concorso per l'ingresso nelle FdO deve obbligatoriamente seguire un corso di addestramento e studiare il presente regolamento.</li>
+                </ol>
+            </div>
+
+            <!-- TAB 2: FILOSOFIA DI GIOCO -->
+            <div id="filosofia" class="tab-content">
+                <div class="roma-section">
+                    <h3>📜 GUIDA FORZE DELL'ORDINE — LFI </h3>
+                    <p style="margin-bottom: 20px; color: #aaa;">LA FORTE ITALIA è ambientato a Roma e punta su un roleplay realistico ispirato alla vita quotidiana. Qui non siamo su Netflix: dimenticate le scene da film d'azione.</p>
+                    
+                    <div class="roma-block">
+                        <h4>🧠 1. Ragionate come vere Forze dell'Ordine</h4>
+                        <p>Le FDO devono comportarsi in modo credibile e professionale. Non sentiamo sparatorie ogni giorno al telegiornale: non siete in guerra, siete in servizio. Le armi rimangono nella fondina e si estraggono solo quando strettamente necessario.</p>
+                    </div>
+
+                    <div class="roma-block">
+                        <h4>🔍 2. Gli arresti richiedono prove concrete</h4>
+                        <p>In Italia non si arresta nessuno "a sensazione". Sono necessari: indagini approfondite, prove certe e documentabili, processo e sentenza. Non siete giudici né sceriffi del Far West. L'arresto rappresenta la fase finale di un lavoro investigativo serio e strutturato.</p>
+                    </div>
+
+                    <div class="roma-block">
+                        <h4>⚠️ 3. Le segnalazioni non equivalgono a colpevolezza</h4>
+                        <p>Quando arriva una chiamata per furto, spari o spaccio: inviate una pattuglia, garantite presenza sul territorio, osservate con attenzione. La semplice presenza di persone in zona non giustifica una perquisizione. Al massimo abbassate il finestrino, verificate che sia tutto in ordine e solo in presenza di sospetti fondati richiedete i documenti. Le perquisizioni devono essere motivabili nel roleplay, non eseguite "tanto per fare".</p>
+                    </div>
+
+                    <div class="roma-block">
+                        <h4>⚖️ 4. Costruite casi solidi, non il vostro ego</h4>
+                        <p>Il vostro compito è raccogliere indizi e prove, non accumulare arresti casuali. Solo così si costruisce una giustizia credibile e si dà autentica profondità al personaggio. <em>LA FORTE ITALIA non è un server d'azione: è un server di simulazione realistica.</em></p>
+                    </div>
+
+                    <div class="roma-block">
+                        <h4>👮 5. Prima persone, poi agenti</h4>
+                        <p>Poliziotto, carabiniere, finanziere: sono mestieri, non identità totali. Ogni personaggio deve avere una vita al di fuori della divisa — amicizie, relazioni, momenti off-duty. Altrimenti siete semplici NPC in uniforme.</p>
+                    </div>
+
+                    <span class="highlight-text">🖋️ LA FORTE ITALIA — Il roleplay viene prima di tutto. Chi non rispetta questo regolamento si troverà fuori servizio... in tutti i sensi.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 LA FORTE ITALIA RP. Questo sito è una community indipendente e non è affiliato con Rockstar Games o Take-Two Interactive.</p>
+    </footer>
+
+    <!-- SCRIPT INTERATTIVO PER IL CAMBIO TAB -->
+    <script>
+        function openTab(tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
